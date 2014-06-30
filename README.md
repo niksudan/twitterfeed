@@ -6,6 +6,20 @@ Requires [twitteroauth](https://github.com/abraham/twitteroauth) by [abraham](ht
 
 This currently only supports retrieving a user's timeline.
 
+Contents
+-----
+- [Setup](#setup)
+- [Implementation](#implementation)
+- [Functions](#functions)
+ - [twitterfeed()](#twitterfeed)
+ - [tf_isRT()](#tf_isrt)
+ - [tf_user()](#tf_user)
+ - [tf_author()](#tf_author)
+ - [tf_avatar()](#tf_avatar)
+ - [tf_tweet()](#tf_tweet)
+ - [tf_tweetText()](#tf_tweettext)
+ - [tf_tweeturl()](#tf_tweeturl)
+
 Setup
 -----
 You should have four different php files in a directory called **twitterfeed**:
