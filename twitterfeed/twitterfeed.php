@@ -3,10 +3,14 @@
 	// Uses associative array content documentation
 	// https://dev.twitter.com/docs/platform-objects
 
-	function twitterfeed($_user, $_count) {
-		$twtr_user = $_user;
+	function twitterfeed($_type, $_input, $_count) {
+		$GLOBALS['twtr_type'] = $_type;
+		$twtr_input = $_input;
 		$twtr_count = $_count;
-		return json_decode(include 'loadtweets.php', true);
+		$out = json_decode(include 'loadtweets.php', true);
+		if ($GLOBALS['twtr_type'] == 'search')
+			$out = $out['statuses'];
+		return $out;
 	}
 
 	function tf_isRT() {
@@ -81,5 +85,3 @@
 	function tf_tweeturl() {
 		echo 'http://twitter.com/'.tf_author('screen_name',false).'/statuses/'.tf_tweet('id_str',false);
 	}
-
-?>
