@@ -1,10 +1,10 @@
 Twitterfeed-PHP
 ===============
+*Version 1.1*
+
 Framework for easy use of Twitter's API with PHP
 
 Requires [twitteroauth](https://github.com/abraham/twitteroauth) by [abraham](https://github.com/abraham)
-
-This currently only supports retrieving a user's timeline.
 
 Contents
 -----
@@ -30,8 +30,10 @@ You should have four different php files in a directory called **twitterfeed**:
  
 Implementation
 --------------
-At the beginning of the file, include twitterfeed.php, which initialises the functions.
-Next, create a variable called $tweets and make it equal to the function twitterfeed() with two parameters - the desired user timeline, and the desired number of tweets to load.
+
+You'll need to specify values for <code>$api_key</code>, <code>$api_secret</code>, <code>$access_key</code>, and <code>$access_secret</code> in **loadtweets.php**. You can get these by creating a twitter application via the [Twitter Application Management](https://apps.twitter.com/) site.
+ 
+Throw this at the top of the file to initialise everything.
 
     <?php 
 	    require_once('twitterfeed/twitterfeed.php');
