@@ -1,12 +1,12 @@
 <?php 
 require_once('twitterfeed/twitterfeed.php');
 
-$u = 'twitter';
+$u = 'testing';
 
 if (isset($_GET['username']))
 	$u = $_GET['username'];
 
-$GLOBALS['tweets'] = twitterfeed($u, 10);
+$GLOBALS['tweets'] = twitterfeed('search', $u, 10);
 ?>
 
 <html>
@@ -16,42 +16,42 @@ $GLOBALS['tweets'] = twitterfeed($u, 10);
 </head>
 
 <style type="text/css">
-body {
-	font-family: sans-serif;
-	width: 480px;
-	margin: auto;
-	background: #ddd;
-}
-#container {
-	background: #fff;
-	border-radius: 10px;
-	overflow: hidden;
-	margin: 1em 0;
-}
-header {
-	text-shadow: 0 0 10px black;
-	color: white;
-	padding: 1em;
-}
-header img {
-	box-shadow: 0 0 15px black;
-}
-ul {
-	margin: 0;
-	list-style: none;
-	padding-left: 0;
-}
-li {
-	padding: 0 15px;
-	margin-top: 1em;
-}
-#tweets img {
-	float: left;
-	margin-right: 1em;
-}
-a {
-	text-decoration: none;
-}
+	body {
+		font-family: sans-serif;
+		width: 480px;
+		margin: auto;
+		background: #ddd;
+	}
+	#container {
+		background: #fff;
+		border-radius: 10px;
+		overflow: hidden;
+		margin: 1em 0;
+	}
+	header {
+		text-shadow: 0 0 10px black;
+		color: white;
+		padding: 1em;
+	}
+	header img {
+		box-shadow: 0 0 15px black;
+	}
+	ul {
+		margin: 0;
+		list-style: none;
+		padding-left: 0;
+	}
+	li {
+		padding: 0 15px;
+		margin-top: 1em;
+	}
+	#tweets img {
+		float: left;
+		margin-right: 1em;
+	}
+	a {
+		text-decoration: none;
+	}
 </style>
 
 <body>
@@ -85,8 +85,8 @@ a {
 					</small>
 				</p>
 				<p>
-					<img src="<?php tf_avatar(); ?>" width="50px">
-					<?php tf_tweetText(); ?></p>
+					<div style="width:50px; height: 50px; overflow: hidden; float: left;"><img src="<?php tf_avatar(); ?>" width="50px"></div>
+					<div style="margin-left: 60px;"><?php tf_tweetText(); ?></p></div>
 				<p>
 					<small>
 						<?php tf_tweet('retweet_count'); ?> Retweets, 
