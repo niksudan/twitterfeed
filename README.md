@@ -77,6 +77,8 @@ Returns if the current tweet is a retweet. Can only be used in the loop.
 
 Returns the loaded user's information. If a property parameter is passed it will echo it if it is a string, else it will return the array. If no property is passed it will return the user array. If the tweet type is something other than a <code>user</code>, it will return the first user's details.
 
+[User Properties](https://dev.twitter.com/docs/platform-objects/users)
+
 * * *
 
 <h5><code>tf_author([String property])</code></h5>
@@ -84,6 +86,8 @@ Returns the loaded user's information. If a property parameter is passed it will
 *Returns: String/Array*
 
 Same as tf_user, but for the current tweet. Can only be use in the loop.
+
+[User Properties](https://dev.twitter.com/docs/platform-objects/users)
 
 * * *
 
@@ -100,6 +104,8 @@ Returns the current user's avatar. If used in the loop it will get the author's 
 *Returns: String/Array*
 
 Same as tf_user, but is a tweet object instead. Can only be used in the loop.
+
+[Tweet Properties](https://dev.twitter.com/docs/platform-objects/tweets)
 
 * * *
 
