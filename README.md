@@ -11,13 +11,13 @@ Contents
 - [Setup](#setup)
 - [Implementation](#implementation)
 - [Functions](#functions)
- - [twitterfeed()](#twitterfeed)
+ - [twitterfeed()](#twitterfeedstring-type-string-query-integer-count)
  - [tf_isRT()](#tf_isrt)
- - [tf_user()](#tf_user)
- - [tf_author()](#tf_author)
+ - [tf_user()](#tf_userstring-property)
+ - [tf_author()](#tf_authorstring-property)
  - [tf_avatar()](#tf_avatar)
- - [tf_tweet()](#tf_tweet)
- - [tf_tweetText()](#tf_tweettext)
+ - [tf_tweet()](#tf_tweetstring-property)
+ - [tf_tweetText()](#tf_tweettextboolean-anchorlinks)
  - [tf_tweeturl()](#tf_tweeturl)
 
 Setup
@@ -107,6 +107,14 @@ Same as tf_user, but is a tweet object instead. Can only be used in the loop.
 
 *Returns: String (with anchor tags)*
 
-Returns the current tweets text. It will create anchor tags around links, usernames and hashtags by default if anchorLinks is not put to false. Can only be used in the loop.
+Returns the current tweet's text. It will create anchor tags around links, usernames and hashtags by default if anchorLinks is not put to false. Can only be used in the loop.
+
+* * *
+
+<h5><code>tf_tweeturl()</code></h5>
+
+*Returns: String*
+
+Returns a link to the current tweet. Can only be used in the loop.
 
 * * *
