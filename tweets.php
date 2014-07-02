@@ -30,7 +30,7 @@
 						<?php tf_tweet('favorite_count'); ?> Favourites
 					</small></span>
 					<small style="float: right">
-						<a href="<?php tf_tweeturl(); ?>">Link</a>
+						<a href="<?php tf_tweetURL(); ?>">Link</a>
 					</small>
 				</p>
 			</div>
