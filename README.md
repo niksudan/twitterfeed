@@ -131,7 +131,7 @@ Returns the current tweet's text. It will create anchor tags around links, usern
 
 * * *
 
-<h5><code>tf_tweeturl()</code></h5>
+<h5><code>tf_tweetURL()</code></h5>
 
 *Returns: String (URL)*
 
