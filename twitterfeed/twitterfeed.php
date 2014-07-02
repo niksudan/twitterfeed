@@ -1,4 +1,4 @@
-<?php session_start();
+<?php
 
 // Uses associative array content documentation for properties
 // https://dev.twitter.com/docs/platform-objects
