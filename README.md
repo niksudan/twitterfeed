@@ -10,6 +10,7 @@ Contents
 -----
 - [Setup](#setup)
 - [Implementation](#implementation)
+- [Examples](#examples)
 - [Functions](#functions)
  - [twitterfeed()](#twitterfeedstring-type-string-query-integer-count)
  - [tf_user()](#tf_userstring-property)
