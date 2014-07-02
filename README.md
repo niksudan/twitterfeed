@@ -38,7 +38,7 @@ Implementation
 
 You'll need to specify values for <code>$api_key</code>, <code>$api_secret</code>, <code>$access_key</code>, and <code>$access_secret</code> in **loadtweets.php**. You can get these by creating a twitter application via the [Twitter Application Management](https://apps.twitter.com/) site.
  
-Throw this right at the top of your file to set everything up.
+Throw this somewhere in your file before the twitterfeed functions to set everything up.
 
     <?php require_once('twitterfeed/twitterfeed.php'); ?>
     
@@ -57,9 +57,9 @@ Examples
 
 Here's a basic example showing a list of [Twitter's](http://twitter.com/twitter) latest 5 tweets:
 
-	<?php require_once('twitterfeed/twitterfeed.php'); ?>
 	<html>
 	<body>
+	<?php require_once('twitterfeed/twitterfeed.php'); ?>
 	<?php twitterfeed('user', 'twitter', 5); ?>
 	<ul>
 		<?php foreach ($GLOBALS['tweets'] as $GLOBALS['tweet']) : ?>
