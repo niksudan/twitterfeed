@@ -77,7 +77,7 @@ function tf_tweetText($_anchorLinks = true) {
 		echo tf_tweet('text');
 }
 
-function tf_tweeturl() {
+function tf_tweetURL() {
 	echo 'http://twitter.com/'.tf_author('screen_name',false).'/statuses/'.tf_tweet('id_str',false);
 }
 
