@@ -1,6 +1,6 @@
 Twitterfeed-PHP
 ===============
-*Version 1.1*
+*Version 1.2*
 
 Framework for easy use of Twitter's API with PHP
 
@@ -12,13 +12,17 @@ Contents
 - [Implementation](#implementation)
 - [Functions](#functions)
  - [twitterfeed()](#twitterfeedstring-type-string-query-integer-count)
- - [tf_isRT()](#tf_isrt)
  - [tf_user()](#tf_userstring-property)
  - [tf_author()](#tf_authorstring-property)
- - [tf_avatar()](#tf_avatar)
  - [tf_tweet()](#tf_tweetstring-property)
  - [tf_tweetText()](#tf_tweettextboolean-anchorlinks)
- - [tf_tweeturl()](#tf_tweeturl)
+ - [tf_tweetURL()](#tf_tweeturl)
+ - [tf_userURL()](#tf_userurl)
+ - [tf_authorURL()](#tf_authorurl)
+ - [tf_avatar()](#tf_avatar)
+ - [tf_searchQuery()](#tf_avatar)
+ - [tf_isRT()](#tf_isrt)
+ - [tf_isType()](#tf_istypestring-type)
 
 Setup
 -----
@@ -33,21 +37,42 @@ Implementation
 
 You'll need to specify values for <code>$api_key</code>, <code>$api_secret</code>, <code>$access_key</code>, and <code>$access_secret</code> in **loadtweets.php**. You can get these by creating a twitter application via the [Twitter Application Management](https://apps.twitter.com/) site.
  
-Throw this at the top of the file to initialise everything.
+Throw this right at the top of your file to set everything up.
 
-    <?php 
-	    require_once('twitterfeed/twitterfeed.php');
-	    $GLOBALS['tweets'] = twitterfeed('user', 'twitter', 5);
-	?>
+    <?php require_once('twitterfeed/twitterfeed.php'); ?>
+    
+To set up a list of tweets, you need to use the function <code>twitterfeed()</code> before you use any of the other functions.
 	
-When wanting to access individual tweets, use a foreach statement. Some functions only work within this loop.
+When wanting to access individual tweets, use the following loop. Some functions only work within this loop.
 
-    <?php foreach ($GLOBALS['tweets'] as $tweet) : ?>
+    <?php foreach ($GLOBALS['tweets'] as $GLOBALS['tweet']) : ?>
 
 	    ...
 
 	<?php endforeach; ?>
 	
+Examples
+--------
+
+Here's a basic example showing a list of [Twitter's](http://twitter.com/twitter) latest 5 tweets:
+
+	<?php require_once('twitterfeed/twitterfeed.php'); ?>
+	<html>
+	<body>
+	<?php twitterfeed('user', 'twitter', 5); ?>
+	<ul>
+		<?php foreach ($GLOBALS['tweets'] as $GLOBALS['tweet']) : ?>
+		
+			<h4><?php tf_author('name'); ?>:</h4>
+			<p><?php tf_tweetText(); ?></p>
+		
+		<?php endforeach; ?>
+	</ul>
+	</body>
+	</html>
+
+There is a detailed example included in the repository. It creates something similar to tweetdeck using the framework. <code>example.php</code> is the main file. It uses <code>header.php</code> to display module headers and <code>tweets.php</code> to display the module tweets.
+
 Functions
 ---------
 
@@ -59,17 +84,11 @@ Functions
 
 Initialises for the twitterfeed. Called at the very beginning of the code.
 
-The <code>type</code> can be one of the following:
+The <code>type</code> (twitterfeed type) can be one of the following:
 - <code>user</code> - Will only return tweets by the user with a username <code>query</code> 
 - <code>search</code> - Will return the most recent tweets that have the <code>query</code> in it
 
-* * *
-
-<h5><code>tf_isRT()</code></h5>
-
-*Returns: Boolean*
-
-Returns if the current tweet is a retweet. Can only be used in the loop.
+By default it will return 10 tweets.
 
 * * *
 
@@ -77,7 +96,7 @@ Returns if the current tweet is a retweet. Can only be used in the loop.
 
 *Returns: String/Array*
 
-Returns the loaded user's information. If a property parameter is passed it will echo it if it is a string, else it will return the array. If no property is passed it will return the user array. If the tweet type is something other than a <code>user</code>, it will return the first user's details.
+Returns the loaded user's information. If a property parameter is passed it will echo it if it is a string, else it will return the array. If no property is passed it will return the user array. If the twitterfeed type is something other than <code>user</code>, it will return the first user's details.
 
 [User Properties](https://dev.twitter.com/docs/platform-objects/users)
 
@@ -87,9 +106,51 @@ Returns the loaded user's information. If a property parameter is passed it will
 
 *Returns: String/Array*
 
-Same as tf_user, but for the current tweet. Can only be use in the loop.
+Same as <code>tf_user()</code>, but for the current tweet. Can only be use in the loop.
 
 [User Properties](https://dev.twitter.com/docs/platform-objects/users)
+
+* * *
+
+<h5><code>tf_tweet([String property])</code></h5>
+
+*Returns: String/Array*
+
+Same as <code>tf_user()</code>, but is a tweet object instead. Can only be used in the loop.
+
+[Tweet Properties](https://dev.twitter.com/docs/platform-objects/tweets)
+
+* * *
+
+<h5><code>tf_tweetText([Boolean anchorLinks])</code></h5>
+
+*Returns: String (with anchor tags)*
+
+Returns the current tweet's text. It will create anchor tags around links, usernames and hashtags by default if <code>anchorLinks</code> is not set to false. Can only be used in the loop.
+
+* * *
+
+<h5><code>tf_tweeturl()</code></h5>
+
+*Returns: String (URL)*
+
+Returns a link to the current tweet. Can only be used in the loop.
+
+* * *
+
+<h5><code>tf_userURL()</code></h5>
+
+*Returns: String (URL)*
+
+Returns a link to the loaded user's profile. If the twitterfeed type is not set to <code>user</code>, it will return the first user's details.
+
+* * *
+
+<h5><code>tf_authorURL()</code></h5>
+
+*Returns: String (URL)*
+
+Returns a link to the tweet's author. Will use <code>tf_userURL()</code> if used the loop.
 
 * * *
 
@@ -101,28 +162,26 @@ Returns the current user's avatar. If used in the loop it will get the author's 
 
 * * *
 
-<h5><code>tf_tweet([String property])</code></h5>
-
-*Returns: String/Array*
-
-Same as tf_user, but is a tweet object instead. Can only be used in the loop.
-
-[Tweet Properties](https://dev.twitter.com/docs/platform-objects/tweets)
-
-* * *
-
-<h5><code>tf_tweetText([Boolean anchorLinks])</code></h5>
-
-*Returns: String (with anchor tags)*
-
-Returns the current tweet's text. It will create anchor tags around links, usernames and hashtags by default if anchorLinks is not put to false. Can only be used in the loop.
-
-* * *
-
-<h5><code>tf_tweeturl()</code></h5>
+<h5><code>tf_searchQuery()</code></h5>
 
 *Returns: String*
 
-Returns a link to the current tweet. Can only be used in the loop.
+Returns the search query used if the twitterfeed type was set to <code>search</code>.
+
+* * *
+
+<h5><code>tf_isRT()</code></h5>
+
+*Returns: Boolean*
+
+Returns if the current tweet is a retweet. Can only be used in the loop.
+
+* * *
+
+<h5><code>tf_isType(String type)</code><h5>
+
+*Returns: Boolean*
+
+Returns whether the <code>type</code> matches the twitterfeed type.
 
 * * *
