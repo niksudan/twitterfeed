@@ -64,8 +64,10 @@ Here's a basic example showing a list of [Twitter's](http://twitter.com/twitter)
 	<ul>
 		<?php foreach ($GLOBALS['tweets'] as $GLOBALS['tweet']) : ?>
 		
+			<li>
 			<h4><?php tf_author('name'); ?>:</h4>
 			<p><?php tf_tweetText(); ?></p>
+			</li>
 		
 		<?php endforeach; ?>
 	</ul>
