@@ -7,8 +7,8 @@ function twitterfeed($_1 = 'user', $_2 = 'twitter', $_3 = 10) {
 
 	$GLOBALS['tweet'] = null;
 	$GLOBALS['twtr_type'] = $_1;
-	$twtr_option[0] = $_2;
-	$twtr_option[1] = $_3;
+	$GLOBALS['twtr_option'][0] = $_2;
+	$GLOBALS['twtr_option'][1] = $_3;
 
 	$out = json_decode(include 'loadtweets.php', true);
 	if ($GLOBALS['twtr_type'] == 'search')
@@ -50,31 +50,22 @@ function tf_tweet($_property = '-1', $echo = true) {
 		return $t;
 }
 
-function tf_tweetText($_anchorLinks = true) {
-	if ($_anchorLinks) {
-		$content_array = explode(" ", tf_tweet('text', false));
-		$output = '';
-		foreach($content_array as $content) {
-			//Link
-			if((substr($content, 0, 7) == "http://") || (substr($content, 0, 8) == "https://") || (substr($content, 0, 4) == "www.")) {
-				$u = $content;
-				$content = '<a href="' . $u . '">' . $content . '</a>';
-			}
-			//Hashtag
-			if(substr($content, 0, 1) == "#") {
-				$u = preg_split('/#\w+/', $content);
-				$content = '<a href="http://twitter.com/hashtag/' . substr($content,1,strlen($content)) . '?src=hash">' . $content . '</a>';
-			}
-			//Mention
-			if(substr($content, 0, 1) == "@") {
-				$u = preg_split("/[^a-zA-Z0-9_]+/", (substr($content,1,strlen($content))));
-				$content = '<a href="http://twitter.com/' . $u[0] . '">' . $content . '</a>';
-			}
-			$output .= " " . $content;
-		}
-		echo trim($output);
-	} else
-		echo tf_tweet('text');
+function tf_tweetText($_links = true, $_hashtags = true, $_mentions = true) {
+	$content = tf_tweet('text', false);
+	$entities = tf_tweet('entities', false);
+	foreach ($entities['urls'] as $_link) {
+		$_replacer = $_links ? '<a href="'.$_link['url'].'">'.$_link['display_url'].'</a>' : '<span class="url">'.$_link['display_url'].'</span>';
+		$content = str_replace($_link['url'], $_replacer, $content);
+	}
+	foreach ($entities['hashtags'] as $_hashtag) {
+		$_replacer = $_hashtags ? '<a href="http://twitter.com/hashtag/'.$_hashtag['text'].'">#'.$_hashtag['text'].'</a>' : '<span class="hashtag">#'.$_hashtag['text'].'</span>';
+		$content = str_replace('#'.$_hashtag['text'], $_replacer, $content);
+	}
+	foreach ($entities['user_mentions'] as $_mention) {
+		$_replacer = $_mentions ? '<a href="http://twitter.com/'.$_mention['screen_name'].'">@'.$_mention['screen_name'].'</a>' : '<span class="mention">@'.$_mention['screen_name'].'</span>';
+		$content = str_replace('@'.$_mention['screen_name'], $_replacer, $content);
+	}
+	echo $content;
 }
 
 function tf_tweetURL() {
