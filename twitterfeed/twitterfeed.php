@@ -1,5 +1,9 @@
 <?php
 
+// Twitterfeed-PHP v1.3
+// Nik Sudan
+// https://github.com/NikSudan/Twitterfeed-PHP/
+
 // Uses associative array content documentation for properties
 // https://dev.twitter.com/docs/platform-objects
 
@@ -54,7 +58,7 @@ function tf_tweetText($_links = true, $_hashtags = true, $_mentions = true) {
 	$content = tf_tweet('text', false);
 	$entities = tf_tweet('entities', false);
 	foreach ($entities['urls'] as $_link) {
-		$_replacer = $_links ? '<a class="url" href="'.$_link['url'].'">'.$_link['display_url'].'</a>' : '<span class="url">'.$_link['display_url'].'</span>';
+		$_replacer = $_links ? '<a class="url" href="'.$_link['url'].'">'.$_link['url'].'</a>' : '<span class="url">'.$_link['url'].'</span>';
 		$content = str_replace($_link['url'], $_replacer, $content);
 	}
 	foreach ($entities['hashtags'] as $_hashtag) {
