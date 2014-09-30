@@ -1,6 +1,6 @@
 Twitterfeed-PHP
 ===============
-*Version 1.2*
+*Version 1.3*
 
 Framework for easy use of Twitter's API with PHP
 
@@ -125,11 +125,13 @@ Same as <code>tf_user()</code>, but is a tweet object instead. Can only be used 
 
 * * *
 
-<h5><code>tf_tweetText([Boolean anchorLinks])</code></h5>
+<h5><code>tf_tweetText([Boolean links, Boolean hashtags, Boolean mentions])</code></h5>
 
-*Returns: String (with anchor tags)*
+*Returns: HTML*
 
-Returns the current tweet's text. It will create anchor tags around links, usernames and hashtags by default if <code>anchorLinks</code> is not set to false. Can only be used in the loop.
+Returns the current tweet's text. It will create anchor tags around links, usernames and hashtags by default if no variables are passed through. If you set an entity link to false, it will wrap it in a <code>span</code> element instead.
+
+URLs will have the class <code>url</code>, hashtags will have the class <code>hashtag</code> and mentions will have the class <code>mention</code>.
 
 * * *
 
