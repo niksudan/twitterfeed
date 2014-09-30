@@ -54,15 +54,15 @@ function tf_tweetText($_links = true, $_hashtags = true, $_mentions = true) {
 	$content = tf_tweet('text', false);
 	$entities = tf_tweet('entities', false);
 	foreach ($entities['urls'] as $_link) {
-		$_replacer = $_links ? '<a href="'.$_link['url'].'">'.$_link['display_url'].'</a>' : '<span class="url">'.$_link['display_url'].'</span>';
+		$_replacer = $_links ? '<a class="url" href="'.$_link['url'].'">'.$_link['display_url'].'</a>' : '<span class="url">'.$_link['display_url'].'</span>';
 		$content = str_replace($_link['url'], $_replacer, $content);
 	}
 	foreach ($entities['hashtags'] as $_hashtag) {
-		$_replacer = $_hashtags ? '<a href="http://twitter.com/hashtag/'.$_hashtag['text'].'">#'.$_hashtag['text'].'</a>' : '<span class="hashtag">#'.$_hashtag['text'].'</span>';
+		$_replacer = $_hashtags ? '<a class="hashtag" href="http://twitter.com/hashtag/'.$_hashtag['text'].'">#'.$_hashtag['text'].'</a>' : '<span class="hashtag">#'.$_hashtag['text'].'</span>';
 		$content = str_replace('#'.$_hashtag['text'], $_replacer, $content);
 	}
 	foreach ($entities['user_mentions'] as $_mention) {
-		$_replacer = $_mentions ? '<a href="http://twitter.com/'.$_mention['screen_name'].'">@'.$_mention['screen_name'].'</a>' : '<span class="mention">@'.$_mention['screen_name'].'</span>';
+		$_replacer = $_mentions ? '<a class="mention" href="http://twitter.com/'.$_mention['screen_name'].'">@'.$_mention['screen_name'].'</a>' : '<span class="mention">@'.$_mention['screen_name'].'</span>';
 		$content = str_replace('@'.$_mention['screen_name'], $_replacer, $content);
 	}
 	echo $content;
