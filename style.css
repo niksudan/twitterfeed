@@ -29,8 +29,17 @@ span {
 	background-repeat: no-repeat;
 	height: 210px;
 }
-.header img {
+.header .avatar {
+	float: right;
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	border-radius: 15px;
 	box-shadow: 0 0 15px black;
+}
+.header .avatar img {
+	width: 100px;
+	height: 100px;
 }
 
 .tweets {
@@ -53,6 +62,7 @@ span {
 	float: left;
 }
 .tweets .avatar img {
+	width: 50px;
 	float: left;
 	margin-right: 1em;
 }

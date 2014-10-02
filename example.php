@@ -4,16 +4,14 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<title>Twitter Feed v1.4</title>
-	<?php require_once('twitterfeed/twitterfeed-new.php'); ?>
+	<?php require_once('twitterfeed/twitterfeed.php'); ?>
 </head>
 <body>
 
 <?php
 	global $twitter;
-	$twitter = new Twitterfeed('search', 'google', 5);
+	$twitter = new Twitterfeed('user', 'twitter', 5);
 ?>
-
-<pre><?php echo var_dump($twitter->tweets); ?></pre>
 
 <table>
 	<tr>
