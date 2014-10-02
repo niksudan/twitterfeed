@@ -1,6 +1,6 @@
 Twitterfeed-PHP
 ===============
-*Version 1.4*
+*Version 1.4.2*
 
 Framework for easy use of Twitter's API with PHP
 
@@ -147,11 +147,11 @@ Outputs the tweet's text without any tags. If *echo* is set to false, it will re
 
 * * *
 
-<h5><code>tweetHTML([Boolean links, Boolean hashtags, Boolean mentions])</code></h5>
+<h5><code>tweetHTML([Boolean links, Boolean hashtags, Boolean mentions, Boolean mediaLinks])</code></h5>
 
 *Returns: Nothing*
 
-Outputs the tweet's text with tags. If any of the variables are set to false, they are wrapped within a *span* element instead. URLs are given the class *url*, hashtags given the class *hashtag* and mentions given the class *mention*.
+Outputs the tweet's text with tags. If any of the variables are set to false, they are wrapped within a *span* element instead. URLs are given the class *url*, hashtags given the class *hashtag* and mentions given the class *mention*. If *mediaLinks* is set to false, it will not show links that link to media elements.
 
 * * *
 

@@ -1,13 +1,13 @@
 <?php
 
-// Twitterfeed-PHP v1.4
+// Twitterfeed-PHP v1.4.2
 // Nik Sudan
 // https://github.com/NikSudan/Twitterfeed-PHP/
 
 // API Keys
-define('API_KEY', 		'');
-define('API_SECRET', 	'');
-define('ACCESS_KEY', 	'');
+define('API_KEY', '');
+define('API_SECRET', '');
+define('ACCESS_KEY', '');
 define('ACCESS_SECRET', '');
 
 class Twitterfeed {
@@ -112,7 +112,7 @@ class Twitterfeed {
 	}
 
 	// Returns tweet html
-	public function tweetHTML($links = true, $hashtags = true, $mentions = true) {
+	public function tweetHTML($links = true, $hashtags = true, $mentions = true, $mediaLinks = true) {
 		$content = $this->tweetText(false);
 		$entities = $this->tweet('entities', false);
 		foreach ($entities->urls as $link) {
@@ -127,7 +127,19 @@ class Twitterfeed {
 			$replacer = $mentions ? '<a class="mention" href="http://twitter.com/'.$mention->screen_name.'" title="'.$mention->name.'">@'.$mention->screen_name.'</a>' : '<span class="mention">@'.$mention->screen_name.'</span>';
 			$content = str_replace('@'.$mention->screen_name, $replacer, $content);
 		}
-		echo $content;
+		if (isset($entities->media)) {
+			if ($mediaLinks) {
+				foreach ($entities->media as $media) {
+					$replacer = $links ? '<a class="url" href="'.$media->url.'">'.$media->url.'</a>' : '<span class="url">'.$media->url.'</span>';
+					$content = str_replace($media->url, $replacer, $content);
+				}
+			} else {
+				foreach ($entities->media as $media) {
+					$content = str_replace($media->url, '', $content);
+				}
+			}
+		}
+		echo trim($content);
 	}
 
 	// Returns the search query
