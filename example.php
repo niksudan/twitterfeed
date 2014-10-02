@@ -20,8 +20,8 @@
 		<?php if ($twitter->hasTweets()) : ?>
 			<td style="width: <?php echo (100); ?>%; min-width: 400px;" valign="top">
 				<div class="container">
-					<?php include 'header-new.php'; ?>
-					<?php include 'tweets-new.php'; ?>
+					<?php include 'header.php'; ?>
+					<?php include 'tweets.php'; ?>
 				</div>
 			</td>
 		<?php endif; ?>
