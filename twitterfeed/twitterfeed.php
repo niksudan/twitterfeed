@@ -124,7 +124,7 @@ class Twitterfeed {
 			$content = str_replace('#'.$hashtag->text, $replacer, $content);
 		}
 		foreach ($entities->user_mentions as $mention) {
-			$replacer = $mentions ? '<a class="mention" href="http://twitter.com/'.$mention->screen_name.'">@'.$mention->screen_name.'</a>' : '<span class="mention">@'.$mention->screen_name.'</span>';
+			$replacer = $mentions ? '<a class="mention" href="http://twitter.com/'.$mention->screen_name.'" title="'.$mention->name.'">@'.$mention->screen_name.'</a>' : '<span class="mention">@'.$mention->screen_name.'</span>';
 			$content = str_replace('@'.$mention->screen_name, $replacer, $content);
 		}
 		echo $content;
