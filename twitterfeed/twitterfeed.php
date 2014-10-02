@@ -1,102 +1,166 @@
 <?php
 
-// Twitterfeed-PHP v1.3
+// Twitterfeed-PHP v1.4
 // Nik Sudan
 // https://github.com/NikSudan/Twitterfeed-PHP/
 
-// Uses associative array content documentation for properties
-// https://dev.twitter.com/docs/platform-objects
+// API Keys
+define('API_KEY', 		'');
+define('API_SECRET', 	'');
+define('ACCESS_KEY', 	'');
+define('ACCESS_SECRET', '');
 
-function twitterfeed($_1 = 'user', $_2 = 'twitter', $_3 = 10) {
+class Twitterfeed {
 
-	$GLOBALS['tweet'] = null;
-	$GLOBALS['twtr_type'] = $_1;
-	$GLOBALS['twtr_option'][0] = $_2;
-	$GLOBALS['twtr_option'][1] = $_3;
+	private $type;
+	private $value;
+	private $limit;
 
-	$out = json_decode(include 'loadtweets.php', true);
-	if ($GLOBALS['twtr_type'] == 'search')
-		$out = $out['statuses'];
+	public $tweet;
+	public $tweets;
 
-	$GLOBALS['tweets'] = $out;
-}
-
-function tf_author($_property = '-1', $echo = true) {
-	$a = (isset($GLOBALS['tweet']) ? (tf_isRT() ? $GLOBALS['tweet']['retweeted_status']['user'] : $GLOBALS['tweet']['user']) : tf_user());
-	if ($_property !== '-1') {
-		if ($echo)
-			echo $a[$_property];
-		else
-			return $a[$_property];
-	} else
-		return $a;
-}
-
-function tf_user($_property = '-1', $echo = true) {
-	$u = $GLOBALS['tweets'][0]['user'];
-	if ($_property !== '-1') {
-		if ($echo)
-			echo $u[$_property];
-		else
-			return $u[$_property];
-	} else
-		return $u;
-}
-
-function tf_tweet($_property = '-1', $echo = true) {
-	$t = (isset($GLOBALS['tweet']) ? (tf_isRT() ? $GLOBALS['tweet']['retweeted_status'] : $GLOBALS['tweet']) : $GLOBALS['tweets'][0]);
-	if ($_property !== '-1') {
-		if ($echo)
-			echo $t[$_property];
-		else
-			return $t[$_property];
-	} else
-		return $t;
-}
-
-function tf_tweetText($_links = true, $_hashtags = true, $_mentions = true) {
-	$content = tf_tweet('text', false);
-	$entities = tf_tweet('entities', false);
-	foreach ($entities['urls'] as $_link) {
-		$_replacer = $_links ? '<a class="url" href="'.$_link['url'].'">'.$_link['url'].'</a>' : '<span class="url">'.$_link['url'].'</span>';
-		$content = str_replace($_link['url'], $_replacer, $content);
+	// Constructor
+	public function __construct($type = 'user', $value = 'twitter', $limit = 10) {
+		$this->type = $type;
+		$this->value = $value;
+		$this->limit = intval($limit);
+		$this->tweets = $this->getData();
+		if ($this->type == 'search') {
+			$this->tweets = $this->tweets->statuses;
+		}
 	}
-	foreach ($entities['hashtags'] as $_hashtag) {
-		$_replacer = $_hashtags ? '<a class="hashtag" href="http://twitter.com/hashtag/'.$_hashtag['text'].'">#'.$_hashtag['text'].'</a>' : '<span class="hashtag">#'.$_hashtag['text'].'</span>';
-		$content = str_replace('#'.$_hashtag['text'], $_replacer, $content);
+
+	// Returns tweet data
+	private function getData() {
+		require_once('twitteroauth.php');
+		$c = new TwitterOAuth(API_KEY, API_SECRET, ACCESS_KEY, ACCESS_SECRET);
+		switch ($this->type) {
+			case 'user':
+				$url = "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=".$this->value;
+				break;
+			case 'search':
+				$url = "https://api.twitter.com/1.1/search/tweets.json?q=".$this->value;
+				break;
+			default:
+				trigger_error('Unknown Twitterfeed type "'.$this->type.'"', E_USER_ERROR);
+		}
+		return $c->get($url."&count=".$this->limit);
 	}
-	foreach ($entities['user_mentions'] as $_mention) {
-		$_replacer = $_mentions ? '<a class="mention" href="http://twitter.com/'.$_mention['screen_name'].'">@'.$_mention['screen_name'].'</a>' : '<span class="mention">@'.$_mention['screen_name'].'</span>';
-		$content = str_replace('@'.$_mention['screen_name'], $_replacer, $content);
+
+	// Returns if there are tweets
+	public function hasTweets() {
+		return $this->tweets ? true : false;
 	}
-	echo $content;
-}
 
-function tf_tweetURL() {
-	echo 'http://twitter.com/'.tf_author('screen_name',false).'/statuses/'.tf_tweet('id_str',false);
-}
+	// Returns if the Twitterfeed is the given type
+	public function isType($type) {
+		return $this->type == $type ? true : false;
+	}
 
-function tf_authorURL() {
-	echo 'http://twitter.com/'.tf_author('screen_name', false);
-}
+	// Returns if tweet was a retweet
+	public function isRT() {
+		if (!$this->tweet)
+			trigger_error('Unknown tweet', E_USER_ERROR);
+		return isset($this->tweet->retweeted_status) ? true : false;
+	}
 
-function tf_userURL() {
-	echo 'http://twitter.com/'.tf_user('screen_name', false);
-}
+	// Returns twitterfeed user info
+	public function user($property = null, $echo = true, $user = null) {
+		if ($this->type == 'user') {
+			$user = $this->tweets[0]->user;
+		} else {
+			if (!$user)
+				trigger_error('Unknown user', E_USER_ERROR);
+		}
+		if ($property) {
+			if ($echo) echo $user->$property;
+			else return $user->$property;
+		} else
+			return $user;
+	}
 
-function tf_avatar() {
-	$u = tf_author();
-	echo str_replace('_normal', '', $u['profile_image_url']);
-}
+	// Returns tweet author info
+	public function author($property = null, $echo = true) {
+		if ($this->tweet) {
+			$author = $this->isRT() ? $this->tweet->retweeted_status->user : $this->tweet->user;
+			$result = $this->user($property, $echo, $author);
+			if (!$echo)
+				return $result;
+		} else
+			trigger_error('Unknown tweet', E_USER_ERROR);
+	}
 
-function tf_searchQuery() {
-	echo isset($GLOBALS['twtr_srch']) ? $GLOBALS['twtr_srch'] : '';
-}
+	// Returns tweet info
+	public function tweet($property = null, $echo = true) {
+		if (isset($this->tweet)) {
+			$tweet = $this->isRT() ? $this->tweet->retweeted_status : $this->tweet;
+		} else
+			trigger_error('Unknown tweet', E_USER_ERROR);
+		if ($property) {
+			if ($echo) echo $tweet->$property;
+			else return $tweet->$property;
+		} else
+			return $tweet;
+	}
 
-function tf_isRT() {
-	return (isset($GLOBALS['tweet']['retweeted_status']) ? true : false);
-}
+	// Returns tweet text
+	public function tweetText($echo = true) {
+		if ($echo)
+			echo $this->tweet('text', false);
+		else
+			return $this->tweet('text', false);
+	}
 
-function tf_isType($_type) {
-	return ($GLOBALS['twtr_type'] == $_type ? true : false);
+	// Returns tweet html
+	public function tweetHTML($links = true, $hashtags = true, $mentions = true) {
+		$content = $this->tweetText(false);
+		$entities = $this->tweet('entities', false);
+		foreach ($entities->urls as $link) {
+			$replacer = $links ? '<a class="url" href="'.$link->url.'">'.$link->url.'</a>' : '<span class="url">'.$link->url.'</span>';
+			$content = str_replace($link->url, $replacer, $content);
+		}
+		foreach ($entities->hashtags as $hashtag) {
+			$replacer = $hashtags ? '<a class="hashtag" href="http://twitter.com/hashtag/'.$hashtag->text.'">#'.$hashtag->text.'</a>' : '<span class="hashtag">#'.$hashtag->text.'</span>';
+			$content = str_replace('#'.$hashtag->text, $replacer, $content);
+		}
+		foreach ($entities->user_mentions as $mention) {
+			$replacer = $mentions ? '<a class="mention" href="http://twitter.com/'.$mention->screen_name.'">@'.$mention->screen_name.'</a>' : '<span class="mention">@'.$mention->screen_name.'</span>';
+			$content = str_replace('@'.$mention->screen_name, $replacer, $content);
+		}
+		echo $content;
+	}
+
+	// Returns the search query
+	public function searchQuery() {
+		if ($this->type == 'search')
+			echo $this->value;
+		else
+			trigger_error('Twitterfeed is not a search', E_USER_ERROR);
+	}
+
+	// Returns user avatar
+	public function userAvatar() {
+		echo str_replace('_normal', '', $this->user('profile_image_url', false));
+	}
+
+	// Returns author avatar
+	public function authorAvatar() {
+		echo str_replace('_normal', '', $this->author('profile_image_url', false));
+	}
+
+	// Returns user url
+	public function userURL() {
+		echo 'http://twitter.com/'.$this->user('screen_name', false);
+	}
+
+	// Returns author url
+	public function authorURL() {
+		echo 'http://twitter.com/'.$this->author('screen_name', false);
+	}
+
+	// Returns tweet url
+	public function tweetURL() {
+		echo 'http://twitter.com/'.$this->author('screen_name',false).'/statuses/'.$this->tweet('id_str',false);
+	}
+
 }
