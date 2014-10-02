@@ -1,44 +1,32 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<title>Twitter Feed</title>
-	<?php require_once('twitterfeed/twitterfeed.php'); ?>
+	<title>Twitter Feed v1.4</title>
+	<?php require_once('twitterfeed/twitterfeed-new.php'); ?>
 </head>
-
 <body>
 
-<?php 
+<?php
+	global $twitter;
+	$twitter = new Twitterfeed('search', 'google', 5);
+?>
 
-$tweetlist = array(
-	array('user', 'twitter'), 
-	array('user', 'youtube'),
-	array('user', 'facebook'),
-	array('user', 'google'),
-	array('search', 'test'),
-	);
-
- ?>
+<pre><?php echo var_dump($twitter->tweets); ?></pre>
 
 <table>
 	<tr>
-
-		<?php foreach ($tweetlist as $u) : ?>
-
-			<td style="width: <?php echo (100/count($tweetlist)); ?>%; min-width: 400px;" valign="top">
+		<?php if ($twitter->hasTweets()) : ?>
+			<td style="width: <?php echo (100); ?>%; min-width: 400px;" valign="top">
 				<div class="container">
-					<?php twitterfeed($u[0], $u[1], 5); ?>
-					<?php include 'header.php'; ?>
-					<?php include 'tweets.php'; ?>
+					<?php include 'header-new.php'; ?>
+					<?php include 'tweets-new.php'; ?>
 				</div>
 			</td>
-
-		<?php endforeach; ?>
-
+		<?php endif; ?>
 	</tr>
 </table>
-</div>
-
+	
 </body>
-
 </html>
