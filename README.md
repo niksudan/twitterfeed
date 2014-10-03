@@ -59,7 +59,6 @@ Here's a basic example showing a list of [Twitter's](http://twitter.com/twitter)
 	<html>
 	<body>
 	<?php require_once('twitterfeed/twitterfeed.php'); ?>
-	<?php twitterfeed('user', 'twitter', 5); ?>
 	<?php $twitter = new Twitterfeed('user', 'twitter', 5); ?>
 	<ul>
 		<?php foreach ($twitter->tweets as $twitter->tweet) : ?>
@@ -151,7 +150,7 @@ Outputs the tweet's text without any tags. If *echo* is set to false, it will re
 
 *Returns: Nothing*
 
-Outputs the tweet's text with tags. If any of the variables are set to false, they are wrapped within a *span* element instead. URLs are given the class *url*, hashtags given the class *hashtag* and mentions given the class *mention*. If *mediaLinks* is set to false, it will not show links that link to media elements.
+Outputs the tweet's text with tags. If any of the variables are set to false, they are wrapped within a *span* element instead. URLs are given the class *url*, hashtags given the class *hashtag* and mentions given the class *mention*. If *mediaLinks* is set to false, it will not show links that link to media entities.
 
 * * *
 
@@ -207,7 +206,7 @@ Outputs the current tweet's URL. Used within the loop only.
 
 *Returns: Boolean*
 
-Returns if the current tweet has any media entities attached to it. Note that animated GIFs do not fall under media elements. Used within the loop only.
+Returns if the current tweet has any media entities attached to it. Note that animated GIFs do not fall under media entities. Used within the loop only.
 
 * * *
 
@@ -217,7 +216,7 @@ Returns if the current tweet has any media entities attached to it. Note that an
 
 Returns or outputs media entity data associated with the current tweet. Used within the loop only.
 
-- If nothing is specified, return an array of the media elements
-- If an index is given, output the media_url of the given media element
-- If a property is given, output the property of the given media element instead
+- If nothing is specified, return an array of the media entities
+- If an index is given, output the media_url of the given media entities
+- If a property is given, output the property of the given media entity instead
 - If echo is set to false, return the value instead of outputting it
