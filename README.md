@@ -1,6 +1,6 @@
 Twitterfeed-PHP
 ===============
-*Version 1.5*
+*Version 1.5.1*
 
 Framework for easy use of Twitter's API with PHP
 
@@ -73,10 +73,12 @@ Here's a basic example showing a list of [Twitter's](http://twitter.com/twitter)
 	</body>
 	</html>
 
-There is a detailed example included in the repository. It uses <code>header.php</code> to display module headers and <code>tweets.php</code> to display the module tweets.
+There is a detailed example included in the repository. It uses <code>header.php</code> to display feed headers and <code>tweets.php</code> to display feed tweets.
 
 Functions
 ---------
+
+*Note - the argument* <code>echo</code> *is set to* <code>true</code> *by default. This means it will output the value by default. Set this to false if you don't want this happening.*
 
 * * *
 
@@ -85,8 +87,8 @@ Functions
 Constructor for the Twitterfeed class.
 
 The type can be the following:
-- *user* - *value* must be the username
-- *search* - *value* must be search query
+- <code>"user"</code> - <code>value</code> must be the username
+- <code>"search"</code> - <code>value</code> must be search query
 
 * * *
 
@@ -118,7 +120,7 @@ Returns whether the current tweet is a retweet. Used within the loop only.
 
 *Returns: Mixed*
 
-Outputs the Twitterfeed user's information. If *echo* is set to false, it will return the value instead. 
+Outputs the Twitterfeed user's information.
 
 * * *
 
@@ -126,7 +128,7 @@ Outputs the Twitterfeed user's information. If *echo* is set to false, it will r
 
 *Returns: Mixed*
 
-Same as *user()*, but returns the current tweet's author instead. Used within the loop only.
+Same as <code>user()</code>, but returns the current tweet's author instead. Used within the loop only.
 
 * * *
 
@@ -134,7 +136,7 @@ Same as *user()*, but returns the current tweet's author instead. Used within th
 
 *Returns: Mixed*
 
-Outputs the current tweet's information. If *echo* is set to false, it will return the value instead. Used within the loop only.
+Outputs the current tweet's information. Used within the loop only.
 
 * * *
 
@@ -142,61 +144,61 @@ Outputs the current tweet's information. If *echo* is set to false, it will retu
 
 *Returns: Mixed*
 
-Outputs the tweet's text without any tags. If *echo* is set to false, it will return the value instead. Used within the loop only.
+Outputs the tweet's text without any tags. Used within the loop only.
 
 * * *
 
-<h5><code>tweetHTML([Boolean links, Boolean hashtags, Boolean mentions, Boolean mediaLinks])</code></h5>
+<h5><code>tweetHTML([Boolean links, Boolean hashtags, Boolean mentions, Boolean mediaLinks, Boolean echo])</code></h5>
 
-*Returns: Nothing*
+*Returns: Mixed*
 
 Outputs the tweet's text with tags. If any of the variables are set to false, they are wrapped within a *span* element instead. URLs are given the class *url*, hashtags given the class *hashtag* and mentions given the class *mention*. If *mediaLinks* is set to false, it will not show links that link to media entities.
 
 * * *
 
-<h5><code>searchQuery()</code></h5>
+<h5><code>searchQuery([Boolean echo])</code></h5>
 
-*Returns: Nothing*
+*Returns: Mixed*
 
 Outputs the current Twitterfeed's search query only if the type is a search.
 
 * * *
 
-<h5><code>userAvatar()</code></h5>
+<h5><code>userAvatar([Boolean echo])</code></h5>
 
-*Returns: Nothing*
+*Returns: Mixed*
 
 Outputs the Twitterfeed user's avatar URL.
 
 * * *
 
-<h5><code>authorAvatar()</code></h5>
+<h5><code>authorAvatar([Boolean echo])</code></h5>
 
-*Returns: Nothing*
+*Returns: Mixed*
 
 Outputs the current tweet author's avatar URL. Used within the loop only.
 
 * * *
 
-<h5><code>userURL()</code></h5>
+<h5><code>userURL([Boolean echo])</code></h5>
 
-*Returns: Nothing*
+*Returns: Mixed*
 
 Outputs the Twitterfeed user's URL.
 
 * * *
 
-<h5><code>authorURL()</code></h5>
+<h5><code>authorURL([Boolean echo])</code></h5>
 
-*Returns: Nothing*
+*Returns: Mixed*
 
 Outputs the current tweet author's URL. Used within the loop only.
 
 * * *
 
-<h5><code>tweetURL()</code></h5>
+<h5><code>tweetURL([Boolean echo])</code></h5>
 
-*Returns: Nothing*
+*Returns: Mixed*
 
 Outputs the current tweet's URL. Used within the loop only.
 
@@ -219,4 +221,3 @@ Returns or outputs media entity data associated with the current tweet. Used wit
 - If nothing is specified, return an array of the media entities
 - If an index is given, output the media_url of the given media entities
 - If a property is given, output the property of the given media entity instead
-- If echo is set to false, return the value instead of outputting it
