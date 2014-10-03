@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<title>Twitter Feed v1.4</title>
+	<title>Twitter Feed</title>
 	<?php require_once('twitterfeed/twitterfeed.php'); ?>
 </head>
 <body>
