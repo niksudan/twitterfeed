@@ -1,6 +1,6 @@
 <?php
 
-// Twitterfeed-PHP v1.5
+// Twitterfeed-PHP v1.5.1
 // Nik Sudan
 // https://github.com/NikSudan/Twitterfeed-PHP/
 
@@ -112,7 +112,7 @@ class Twitterfeed {
 	}
 
 	// Returns tweet html
-	public function tweetHTML($links = true, $hashtags = true, $mentions = true, $mediaLinks = true) {
+	public function tweetHTML($links = true, $hashtags = true, $mentions = true, $mediaLinks = true, $echo = true) {
 		$content = $this->tweetText(false);
 		$entities = $this->tweet('entities', false);
 		foreach ($entities->urls as $link) {
@@ -139,40 +139,61 @@ class Twitterfeed {
 				}
 			}
 		}
-		echo trim($content);
+		if ($echo)
+			echo trim($content);
+		else
+			return trim($content);
 	}
 
 	// Returns the search query
-	public function searchQuery() {
-		if ($this->type == 'search')
-			echo $this->value;
-		else
+	public function searchQuery($echo = true) {
+		if ($this->type == 'search') {
+			if ($echo)
+				echo $this->value;
+			else
+				return $this->value;
+		} else
 			trigger_error('Twitterfeed is not a search', E_USER_ERROR);
 	}
 
 	// Returns user avatar
-	public function userAvatar() {
-		echo str_replace('_normal', '', $this->user('profile_image_url', false));
+	public function userAvatar($echo = true) {
+		if ($echo)
+			echo str_replace('_normal', '', $this->user('profile_image_url', false));
+		else
+			return str_replace('_normal', '', $this->user('profile_image_url', false));
 	}
 
 	// Returns author avatar
-	public function authorAvatar() {
-		echo str_replace('_normal', '', $this->author('profile_image_url', false));
+	public function authorAvatar($echo = true) {
+		if ($echo)
+			echo str_replace('_normal', '', $this->author('profile_image_url', false));
+		else
+			return str_replace('_normal', '', $this->author('profile_image_url', false));
 	}
 
 	// Returns user url
-	public function userURL() {
-		echo 'http://twitter.com/'.$this->user('screen_name', false);
+	public function userURL($echo = true) {
+		if ($echo)
+			echo 'http://twitter.com/'.$this->user('screen_name', false);
+		else
+			return 'http://twitter.com/'.$this->user('screen_name', false);
 	}
 
 	// Returns author url
-	public function authorURL() {
-		echo 'http://twitter.com/'.$this->author('screen_name', false);
+	public function authorURL($echo = true) {
+		if ($echo)
+			echo 'http://twitter.com/'.$this->author('screen_name', false);
+		else
+			return 'http://twitter.com/'.$this->author('screen_name', false);
 	}
 
 	// Returns tweet url
-	public function tweetURL() {
-		echo 'http://twitter.com/'.$this->author('screen_name',false).'/statuses/'.$this->tweet('id_str',false);
+	public function tweetURL($echo = true) {
+		if ($echo)
+			echo 'http://twitter.com/'.$this->author('screen_name',false).'/statuses/'.$this->tweet('id_str',false);
+		else
+			return 'http://twitter.com/'.$this->author('screen_name',false).'/statuses/'.$this->tweet('id_str',false);
 	}
 
 	// Returns if has media
