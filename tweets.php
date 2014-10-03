@@ -17,6 +17,17 @@
 			</div>
 			<div style="margin-left: 60px;">
 				<p><?php $twitter->tweetHTML(); ?></p>
+				<?php if ($twitter->hasMedia()) : ?>
+					<ul class="media">
+						<?php for ($i = 0; $i < count($twitter->media()); $i ++) : ?>
+							<li>
+								<a href="<?php $twitter->media($i, 'url'); ?>">
+									<img width="256" src="<?php $twitter->media($i); ?>" title="Photo by <?php $twitter->author('name'); ?>">
+								</a>
+							</li>
+						<?php endfor; ?>
+					</ul>
+				<?php endif; ?>
 				<p>
 					<span><small>
 						<?php $twitter->tweet('retweet_count'); ?> Retweets, 

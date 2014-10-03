@@ -1,6 +1,6 @@
 Twitterfeed-PHP
 ===============
-*Version 1.4.2*
+*Version 1.5*
 
 Framework for easy use of Twitter's API with PHP
 
@@ -202,3 +202,22 @@ Outputs the current tweet author's URL. Used within the loop only.
 Outputs the current tweet's URL. Used within the loop only.
 
 * * *
+
+<h5><code>hasMedia()</code></h5>
+
+*Returns: Boolean*
+
+Returns if the current tweet has any media entities attached to it. Note that animated GIFs do not fall under media elements. Used within the loop only.
+
+* * *
+
+<h5><code>media([Integer index, String property, Boolean echo])</code></h5>
+
+*Returns: Mixed*
+
+Returns or outputs media entity data associated with the current tweet. Used within the loop only.
+
+- If nothing is specified, return an array of the media elements
+- If an index is given, output the media_url of the given media element
+- If a property is given, output the property of the given media element instead
+- If echo is set to false, return the value instead of outputting it

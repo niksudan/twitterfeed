@@ -1,6 +1,6 @@
 <?php
 
-// Twitterfeed-PHP v1.4.2
+// Twitterfeed-PHP v1.5
 // Nik Sudan
 // https://github.com/NikSudan/Twitterfeed-PHP/
 
@@ -173,6 +173,23 @@ class Twitterfeed {
 	// Returns tweet url
 	public function tweetURL() {
 		echo 'http://twitter.com/'.$this->author('screen_name',false).'/statuses/'.$this->tweet('id_str',false);
+	}
+
+	// Returns if has media
+	public function hasMedia() {
+		return isset($this->tweet('entities', false)->media) && count($this->tweet('entities', false)->media) > 0 ? true : false;
+	}
+
+	// Returns tweet media
+	public function media($index = null, $property = 'media_url', $echo = true) {
+		if ($index === null) {
+			return $this->tweet('entities', false)->media;
+		} else {
+			if ($echo)
+				echo $this->tweet('entities', false)->media[$index]->$property;
+			else
+				return $this->tweet('entities', false)->media[$index]->$property;
+		}
 	}
 
 }
