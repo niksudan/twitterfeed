@@ -1,6 +1,6 @@
 <?php
 
-// Twitterfeed-PHP v1.5.2
+// Twitterfeed-PHP v1.5.3
 // Nik Sudan
 // https://github.com/NikSudan/Twitterfeed-PHP/
 
@@ -62,6 +62,13 @@ class Twitterfeed {
 		if (!$this->tweet)
 			trigger_error('Unknown tweet', E_USER_ERROR);
 		return isset($this->tweet->retweeted_status) ? true : false;
+	}
+
+	// Returns if tweet was a reply
+	public function isReply() {
+		if (!$this->tweet)
+			trigger_error('Unknown tweet', E_USER_ERROR);
+		return $this->tweet->in_reply_to_screen_name ? true : false;
 	}
 
 	// Returns twitterfeed user info
@@ -211,6 +218,16 @@ class Twitterfeed {
 			else
 				return $this->tweet('entities', false)->media[$index]->$property;
 		}
+	}
+
+	// Returns reply screen name
+	public function inReplyTo($echo = false) {
+		if (!$this->tweet)
+			trigger_error('Unknown tweet', E_USER_ERROR);
+		if (!$echo)
+			return $this->tweet->in_reply_to_screen_name;
+		else
+			echo $this->tweet->in_reply_to_screen_name;
 	}
 
 }

@@ -1,6 +1,6 @@
 Twitterfeed-PHP
 ===============
-*Version 1.5.2*
+*Version 1.5.3*
 
 Framework for easy use of Twitter's API with PHP
 
@@ -221,3 +221,19 @@ Returns or outputs media entity data associated with the current tweet. Used wit
 - If nothing is specified, return an array of the media entities
 - If an index is given, output the media_url of the given media entities
 - If a property is given, output the property of the given media entity instead
+
+* * *
+
+<h5><code>isReply()</code></h5>
+
+*Returns: Boolean*
+
+Returns if the current tweet is a reply. Use within the loop only.
+
+* * *
+
+<h5><code>inReplyTo([Boolean echo])</code></h5>
+
+*Returns: Mixed*
+
+Outputs the screen name of the user the current tweet was in reply to. Used within the loop only.

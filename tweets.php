@@ -5,11 +5,12 @@
 			<p>
 				<small>
 					<?php if ($twitter->isRT()) {echo 'RT - ';} ?>
-					<?php $twitter->author('name') ?> 
+					<strong><?php $twitter->author('name') ?></strong>
 					<a href="<?php $twitter->authorURL(); ?>">
 						@<?php $twitter->author('screen_name'); ?>
 					</a>
-					<span><br><?php $twitter->tweet('created_at'); ?></span>
+					<span><br><?php echo DateTime::createFromFormat('D M d H:i:s O Y', $twitter->tweet('created_at', false))->format('l jS F Y'); ?></span>
+					<?php if ($twitter->isReply()) : ?><span>in reply to <a href="http://twitter.com/<?php $twitter->inReplyTo(true); ?>">@<?php $twitter->inReplyTo(true); ?></a></span><?php endif; ?>
 				</small>
 			</p>
 			<div class="avatar">
