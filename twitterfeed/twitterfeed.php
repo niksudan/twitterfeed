@@ -1,6 +1,6 @@
 <?php
 
-// Twitterfeed-PHP v1.5.1
+// Twitterfeed-PHP v1.5.2
 // Nik Sudan
 // https://github.com/NikSudan/Twitterfeed-PHP/
 
@@ -66,7 +66,7 @@ class Twitterfeed {
 
 	// Returns twitterfeed user info
 	public function user($property = null, $echo = true, $user = null) {
-		if ($this->type == 'user') {
+		if ($this->type == 'user' && !$user) {
 			$user = $this->tweets[0]->user;
 		} else {
 			if (!$user)

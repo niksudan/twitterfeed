@@ -1,6 +1,6 @@
 Twitterfeed-PHP
 ===============
-*Version 1.5.1*
+*Version 1.5.2*
 
 Framework for easy use of Twitter's API with PHP
 
