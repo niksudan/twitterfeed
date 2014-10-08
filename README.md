@@ -14,7 +14,7 @@ Contents
 - [Implementation](#implementation)
 - [Examples](#examples)
 - [Functions](#functions)
-- [Loop Only Functions](#looponlyfunctions)
+- [Loop Only Functions](#loop-only-functions)
 
 Setup
 -----
