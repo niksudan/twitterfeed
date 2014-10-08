@@ -42,7 +42,7 @@ To set up a list of tweets, you need to create a Twitterfeed object. It's a good
 
 	<?php $twitter = new Twitterfeed('user', 'twitter', 5); ?>
 	
-When wanting to access individual tweets, use the following loop. Some functions only work within this loop.
+When wanting to access individual tweets, use the following loop. [Some functions only work within this loop.](#loop-only-functions)
 
     <?php foreach ($twitter->tweets as $twitter->tweet) : ?>
 
