@@ -10,7 +10,7 @@
 
 <?php
 	global $twitter;
-	$twitter = new Twitterfeed('user', 'niksudan', 5);
+	$twitter = new Twitterfeed('user', 'twitter', 5);
 ?>
 
 <table>
