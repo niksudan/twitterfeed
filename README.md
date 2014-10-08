@@ -214,7 +214,7 @@ Returns whether the current tweet is a retweet.
 
 *Returns: Boolean*
 
-Returns if the current tweet is a reply. Use within the loop only.
+Returns if the current tweet is a reply.
 
 * * *
 
