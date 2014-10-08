@@ -14,6 +14,7 @@ Contents
 - [Implementation](#implementation)
 - [Examples](#examples)
 - [Functions](#functions)
+- [Loop Only Functions](#looponlyfunctions)
 
 Setup
 -----
@@ -84,7 +85,7 @@ Functions
 
 <h5><code>Twitterfeed(String type, String value, Integer limit)</code></h5>
 
-Constructor for the Twitterfeed class.
+*Constructor for the Twitterfeed class*
 
 The type can be the following:
 - <code>"user"</code> - <code>value</code> must be the username
@@ -108,51 +109,11 @@ Returns whether the Twitterfeed matches that type.
 
 * * *
 
-<h5><code>isRT()</code></h5>
-
-*Returns: Boolean*
-
-Returns whether the current tweet is a retweet. Used within the loop only.
-
-* * *
-
 <h5><code>user([String property, Boolean echo])</code></h5>
 
 *Returns: Mixed*
 
 Outputs the Twitterfeed user's information.
-
-* * *
-
-<h5><code>author([String property, Boolean echo])</code></h5>
-
-*Returns: Mixed*
-
-Same as <code>user()</code>, but returns the current tweet's author instead. Used within the loop only.
-
-* * *
-
-<h5><code>tweet([String property, Boolean echo])</code></h5>
-
-*Returns: Mixed*
-
-Outputs the current tweet's information. Used within the loop only.
-
-* * *
-
-<h5><code>tweetText([Boolean echo])</code></h5>
-
-*Returns: Mixed*
-
-Outputs the tweet's text without any tags. Used within the loop only.
-
-* * *
-
-<h5><code>tweetHTML([Boolean links, Boolean hashtags, Boolean mentions, Boolean mediaLinks, Boolean echo])</code></h5>
-
-*Returns: Mixed*
-
-Outputs the tweet's text with tags. If any of the variables are set to false, they are wrapped within a *span* element instead. URLs are given the class *url*, hashtags given the class *hashtag* and mentions given the class *mention*. If *mediaLinks* is set to false, it will not show links that link to media entities.
 
 * * *
 
@@ -172,14 +133,6 @@ Outputs the Twitterfeed user's avatar URL.
 
 * * *
 
-<h5><code>authorAvatar([Boolean echo])</code></h5>
-
-*Returns: Mixed*
-
-Outputs the current tweet author's avatar URL. Used within the loop only.
-
-* * *
-
 <h5><code>userURL([Boolean echo])</code></h5>
 
 *Returns: Mixed*
@@ -188,11 +141,32 @@ Outputs the Twitterfeed user's URL.
 
 * * *
 
-<h5><code>authorURL([Boolean echo])</code></h5>
+Loop Only Functions
+-------------------
+
+* * *
+
+<h5><code>tweet([String property, Boolean echo])</code></h5>
 
 *Returns: Mixed*
 
-Outputs the current tweet author's URL. Used within the loop only.
+Outputs the current tweet's information.
+
+* * *
+
+<h5><code>tweetText([Boolean echo])</code></h5>
+
+*Returns: Mixed*
+
+Outputs the tweet's text without any tags.
+
+* * *
+
+<h5><code>tweetHTML([Boolean links, Boolean hashtags, Boolean mentions, Boolean mediaLinks, Boolean echo])</code></h5>
+
+*Returns: Mixed*
+
+Outputs the tweet's text with tags. If any of the variables are set to false, they are wrapped within a *span* element instead. URLs are given the class *url*, hashtags given the class *hashtag* and mentions given the class *mention*. If *mediaLinks* is set to false, it will not show links that link to media entities.
 
 * * *
 
@@ -200,27 +174,39 @@ Outputs the current tweet author's URL. Used within the loop only.
 
 *Returns: Mixed*
 
-Outputs the current tweet's URL. Used within the loop only.
+Outputs the current tweet's URL.
 
 * * *
 
-<h5><code>hasMedia()</code></h5>
-
-*Returns: Boolean*
-
-Returns if the current tweet has any media entities attached to it. Note that animated GIFs do not fall under media entities. Used within the loop only.
-
-* * *
-
-<h5><code>media([Integer index, String property, Boolean echo])</code></h5>
+<h5><code>author([String property, Boolean echo])</code></h5>
 
 *Returns: Mixed*
 
-Returns or outputs media entity data associated with the current tweet. Used within the loop only.
+Same as <code>user()</code>, but returns the current tweet's author instead.
 
-- If nothing is specified, return an array of the media entities
-- If an index is given, output the media_url of the given media entities
-- If a property is given, output the property of the given media entity instead
+* * *
+
+<h5><code>authorAvatar([Boolean echo])</code></h5>
+
+*Returns: Mixed*
+
+Outputs the current tweet author's avatar URL.
+
+* * *
+
+<h5><code>authorURL([Boolean echo])</code></h5>
+
+*Returns: Mixed*
+
+Outputs the current tweet author's URL.
+
+* * *
+
+<h5><code>isRT()</code></h5>
+
+*Returns: Boolean*
+
+Returns whether the current tweet is a retweet.
 
 * * *
 
@@ -236,4 +222,26 @@ Returns if the current tweet is a reply. Use within the loop only.
 
 *Returns: Mixed*
 
-Outputs the screen name of the user the current tweet was in reply to. Used within the loop only.
+Outputs the screen name of the user the current tweet was in reply to.
+
+* * *
+
+<h5><code>hasMedia()</code></h5>
+
+*Returns: Boolean*
+
+Returns if the current tweet has any media entities attached to it. Note that animated GIFs do not fall under media entities.
+
+* * *
+
+<h5><code>media([Integer index, String property, Boolean echo])</code></h5>
+
+*Returns: Mixed*
+
+Returns or outputs media entity data associated with the current tweet.
+
+- If nothing is specified, return an array of the media entities
+- If an index is given, output the media_url of the given media entities
+- If a property is given, output the property of the given media entity instead
+
+* * *
