@@ -51,6 +51,11 @@ When wanting to access individual tweets, use the following loop. [Some function
 	<?php endforeach; ?>
 	
 And that's it!
+
+Here are some pages you might want to look into - these will give you the attributes to use.
+
+- [Twitter User Objects](https://dev.twitter.com/overview/api/users)
+- [Twitter Tweet Objects](https://dev.twitter.com/overview/api/tweets)
 	
 Examples
 --------
