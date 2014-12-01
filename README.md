@@ -106,7 +106,7 @@ Returns whether the Twitterfeed has any tweets in it.
 
 * * *
 
-<h5><code>isType()</code></h5>
+<h5><code>isType(String type)</code></h5>
 
 *Returns: Boolean*
 
