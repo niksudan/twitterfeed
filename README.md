@@ -1,4 +1,4 @@
-Twitterfeed-PHP
+twitterfeed
 ===============
 *Version 1.5.3*
 
