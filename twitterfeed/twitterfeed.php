@@ -1,8 +1,8 @@
 <?php
 
-// Twitterfeed-PHP v1.5.3
+// twitterfeed v1.5.3
 // Nik Sudan
-// https://github.com/NikSudan/Twitterfeed-PHP/
+// https://github.com/NikSudan/twitterfeed/
 
 // API Keys
 define('API_KEY', '');
